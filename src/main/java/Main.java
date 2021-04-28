@@ -12,25 +12,12 @@ public class Main {
 
     // Driver code
     public static void main(String args[]) throws IOException {
-        //int count = 100000000;
-        //int kBest = 10000;
-
-        // Creating empty priority queue
-        //int[] data = generateRandomData(count);
-
-        //System.out.println("data:");
-        //System.out.println(Arrays.toString(data));
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet1 = workbook.createSheet("ModifiedPriorityQueueAlgorithm");
         XSSFSheet sheet2 = workbook.createSheet("TreeSetAlgorithm");
 
-        int c = 20;
-        //Row headerRow = sheet.createRow(0);
-        //Cell headerCell = headerRow.createCell(0);
-        //headerCell.setCellValue("Course Name");
-
-        //for(int c = 18; c < 20 ; c ++) {
+        for(int c = 1; c < 10 ; c ++) {
 
             Row row1 = sheet1.createRow(c);
             Row row2 = sheet2.createRow(c);
@@ -43,7 +30,7 @@ public class Main {
             int[] data = generateRandomData(count);
             System.out.println("=======\nRandom generated");
 
-            for(int k = 1 ; k < 1000; k++) {
+            for(int k = 1 ; k < 100; k++) {
                 System.out.println("k = "  + k);
                 Cell val1 = row1.createCell(k );
                 Cell val2 = row2.createCell(k );
@@ -67,41 +54,12 @@ public class Main {
 
                 val2.setCellValue(timeInMs);
 
-                //val.setCellValue(k);
-
             }
-        //}
+        }
 
-        FileOutputStream outputStream = new FileOutputStream("./maxRandom500.xlsx");
+        FileOutputStream outputStream = new FileOutputStream("./excel.xlsx");
         workbook.write(outputStream);
         workbook.close();
-
-
-        /*int count = 1000000000;
-        int kBest = 10000;
-        int[] data = generateRandomData(count);
-        System.out.println("=======\nRandom generated");
-
-        long start, best, end, timeInMs;
-
-        start = System.currentTimeMillis();
-        best = ModifiedPriorityQueueAlgorithm(data, kBest);
-        end = System.currentTimeMillis();
-        timeInMs = end - start;
-
-        //System.out.print("k: " + k + " s: " + s + " |=> " + timeInMs + " ");
-        System.out.println("[ModifiedPriorityQueueAlgorithm] Solving kBest (" + kBest + ") unique on " + count + " samples in " + timeInMs + " ms. (best value: " + best + ")");
-
-        start = System.currentTimeMillis();
-        best = TreeSetAlgorithm(data, kBest);
-        end = System.currentTimeMillis();
-        timeInMs = end - start;
-
-        //System.out.println(" | " + timeInMs);
-        System.out.println("[TreeSetAlgorithm] Solving kBest (" + kBest + ") unique on " + count + " samples in " + timeInMs + " ms. (best value: " + best + ")");
-
-*/
-
     }
 
     public static int ModifiedPriorityQueueAlgorithm(int[] data, int kBest) {
@@ -134,26 +92,6 @@ public class Main {
         }
         return results.first();
     }
-
-    public static int PriorityQueueAlgorithm(int[] data, int kBest) {
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o));
-        for(int val : data) {
-            if(pQueue.size() < kBest)
-                pQueue.add(val);
-            else
-            {
-                if(!pQueue.contains(val)) {
-                    int first = pQueue.peek();
-                    if(val > first)
-                        pQueue.add(val);
-                }
-            }
-        }
-        return pQueue.peek();
-    }
-
-
-
 
 
     public static int[] generateRandomData(int count) {
